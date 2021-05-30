@@ -1,0 +1,231 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<locale.h>
+
+struct library
+{
+char kitapadi[30]; 
+char yazar[30];
+int sayfa;
+};
+
+
+
+void printMessageCenter(const char* message)
+{
+    int l =0;
+    int p = 0;
+    l = (20 - strlen(message))/2;
+    printf("\t\t\t");
+    for(p =0 ; p < l ; p++)
+    {
+        printf(" ");
+    }
+    printf("%s",message);
+}
+void printMessage(char* message)
+{
+    int l =0;
+    int p = 0;
+    l = (37 - strlen(message))/2;
+    printf("\t\t\t");
+    for(p =0 ; p < l ; p++)
+    {
+        printf(" ");
+    }
+    printf("%s",message);
+}
+
+
+void hosgeldin()
+{
+    system("cls");
+    printf("---------------------------------------------------------------------------");
+    printf("\n------------                                                   ------------");
+    printf("\n------------                  Kütüphane Otomasyonu              ------------");
+    printf("\n------------                                                   ------------");
+    printf("\n---------------------------------------------------------------------------");
+}
+
+
+
+int main()
+{
+
+setlocale(LC_ALL, "Turkish");
+
+hosgeldin();
+struct library l[100];
+struct library ll[100];
+struct library *pl;
+struct library *ol;
+char string1[30],string2[30],ara[30];
+int i,j,n, keepcount,keepc,ayni;
+int w;
+i=n=keepcount=keepc = 0;
+
+
+
+while(n!=6)
+{
+printf("\n1. Yeni Kitap Ekle\n");
+printf("2. Okuduğum Kitaplar \n");
+printf("3. Okumak İstediğim Kitaplar\n");
+printf("4. Yazarlar Listesi\n");
+printf("5. Kitap Ara\n");
+printf("6. Çıkış");
+
+printf ("\n\nYukarıdaki seçeneklerden birini giriniz: ");
+scanf("%d",&n);
+
+switch (n)
+{
+case 1:  
+	
+	
+	printf ("Okuduğunuz kitaplar için 1'e, \nOkumak istediğiniz kitaplar için 2'ye basın:\n");
+	scanf("%d",&w);
+	if (w==1)
+	{
+	    
+	    ol = (struct library*) malloc(1 * sizeof(struct library));
+	printf ("Kitabın adını giriniz: ");
+	scanf ("%s",l[keepc].kitapadi);
+	
+	printf ("Kitabın yazarını giriniz: ");
+	scanf ("%s",l[keepc].yazar);
+	
+	printf ("Kitap sayfa sayısını giriniz: ");
+	scanf ("%d",&l[keepc].sayfa);
+
+	keepc++;
+	}
+
+	if (w==2)
+	{
+
+	    pl = (struct library*) malloc(1 * sizeof(struct library));
+	printf ("Kitabın adını giriniz: ");
+	scanf ("%s",ll[keepcount].kitapadi);
+	
+	printf ("Kitabın yazarını giriniz: ");
+	scanf ("%s",ll[keepcount].kitapadi);
+	
+	printf ("Kitap sayfa sayısını giriniz: ");
+	scanf ("%d",&ll[keepcount].sayfa);
+
+
+	keepcount++;
+	}
+	
+
+	break;
+case 2:
+	printf("Okuduğum Kitaplar\n");
+	for(i=0;i<keepc;i++)
+	{
+	printf("\n--------------------------------------------------------------------------------------");    
+	    
+	printf ("\n Kitap (%d): %s",l[i].sayfa,l[i].kitapadi);
+	
+	printf("               ");
+	
+	printf ("\t Yazarı : %s",l[i].yazar);
+
+	printf("\n--------------------------------------------------------------------------------------");
+	}
+	break;
+
+case 3:
+	
+	printf("Okumak İstediğim Kitaplar\n");
+	for(i=0;i<keepcount;i++)
+	{
+	printf("\n--------------------------------------------------------------------------------------");    
+	    
+	printf ("\n Kitap (%d): %s",ll[i].sayfa,ll[i].kitapadi);
+	
+	printf ("\t Yazarı : %s",ll[i].yazar);
+
+	printf("\n--------------------------------------------------------------------------------------");
+	}
+    
+	break;
+
+case 4:
+	printf ("Yazarlar Listesi");
+	
+	printf ("\n %s :",l[i].yazar);
+	
+	for (i=0;i<keepc;i++)
+	{
+	    ayni=1;
+	        for (j=0; j<i; j++)
+	        {
+	            ayni=strcmp(l[i].yazar,l[j].yazar); 
+	        }
+	        
+	        if (ayni!=0)
+	           {
+	           printf ("\n %s ",l[i].yazar);
+	           }
+	}
+	
+	ayni=strcmp(l[0].yazar,ll[0].yazar); 
+	  
+	        if (ayni!=0)
+	           {
+	           printf ("\n %s ",ll[0].yazar);
+	           }
+	
+	for (i=0;i<keepcount;i++)
+	{
+	    ayni=1;
+	        for (j=0; j<i; j++)
+	        {
+	            ayni=strcmp(ll[i].yazar,ll[j].yazar); 
+	        }
+	        
+	        if (ayni!=0)
+	           {
+	           printf ("\n %s ",ll[i].yazar);
+	           }
+	}
+	break;
+
+case 5:
+printf ("Aramak istediğiniz kitabın adını giriniz: ");
+scanf ("%s", ara);
+
+for (i=0; i<keepcount; i++)
+{
+ayni=strcmp(ara,ll[i].kitapadi);  
+   if(ayni==0)  
+   
+   printf("Kitabınız %s ve %s yazarı tarafından yazılmış, \"Okumak İstiyorum\" kısmında bulunuyor.\n", ara,ll[i].yazar);    
+   else  
+   
+   printf("Kitap bulunamadı!");  
+}  
+
+for (i=0; i<keepc; i++)
+{
+ayni=strcmp(ara,l[i].kitapadi);  
+   if(ayni==0)  
+   
+   printf("Kitabınız %s ve %s yazarı tarafından yazılmış, \"Okuduğum Kitaplar\" kısmında bulunuyor.\n", ara,l[i].yazar);  
+   else  
+   
+   printf("Kitap bulunamadı!");  
+}  
+
+
+break;
+
+case 6:
+	exit (0); 
+}
+}
+return 0;
+}
